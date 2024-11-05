@@ -1,0 +1,82 @@
+﻿<Window x:Class="Lab4_AIS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab4_AIS"
+        xmlns:viewmodel="clr-namespace:Lab4_AIS.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:AppVM}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1080" Width="1920">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.3*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <DataGrid ItemsSource="{Binding Cars}" AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                    <DataGridTextColumn Header="Maker" Binding="{Binding Maker}" Width="100"/>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="100"/>
+                    <DataGridTextColumn Header="Color" Binding="{Binding Color}" Width="100"/>
+                    <DataGridCheckBoxColumn Header="Has Accidents" Binding="{Binding HasAccidents}" Width="100"/>
+                    <DataGridCheckBoxColumn Header="Is Sold" Binding="{Binding IsSold}" Width="100"/>
+                    <DataGridTextColumn Header="Mileage" Binding="{Binding Mileage}" Width="100"/>
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="100"/>
+                    <DataGridTextColumn Header="VIN" Binding="{Binding VIN}" Width="150"/>
+                    <DataGridTextColumn Header="Year Produced" Binding="{Binding YearProd}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Добавление элемента"/>
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <Label Content="Maker"/>
+                        <Label Content="Model"/>
+                        <Label Content="Color"/>
+                        <Label Content="Has accidents"/>
+                        <Label Content="Is sold"/>
+                        <Label Content="Mileage"/>
+                        <Label Content="Price"/>
+                        <Label Content="VIN"/>
+                        <Label Content="Year Produced"/>
+                        <Button Content="Добавить" Command="{Binding AddDataCommand}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBox Text="{Binding Car.Maker, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="0 5 0 0" />
+                        <TextBox Text="{Binding Car.Model, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="0 7 0 0"/>
+                        <TextBox Text="{Binding Car.Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="0 7 0 0"/>
+
+                        <CheckBox IsChecked="{Binding Car.HasAccidents, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 0" />
+                        <CheckBox IsChecked="{Binding Car.IsSold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 0"/>
+
+                        <TextBox Text="{Binding Car.Mileage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"  Margin="0 12 0 0"/>
+                        <TextBox Text="{Binding Car.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"  Margin="0 8 0 0"/>
+                        <TextBox Text="{Binding Car.VIN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"  Margin="0 8 0 0"/>
+                        <TextBox Text="{Binding Car.YearProd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="100"  Margin="0 7 0 0"/>
+                    </StackPanel>
+                    <Label Content="{Binding ValidationMessage}" Foreground="Red" FontWeight="Bold" Margin="10" />
+                </StackPanel>
+
+                <Grid VerticalAlignment="Center" Margin="10 100 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                            <Label Content="Удаление элемента" />
+                            <Label Content="ID элемента" HorizontalAlignment="Center"/>
+                            <Button Content="Удалить" Command="{Binding DeleteDataCommand}" Margin=" 0 10 0 0" />
+                            <Label Content="{Binding ErrorMessage}"  Foreground="Red" FontWeight="Bold" Margin="10"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBox Text="{Binding Car.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin=" 0 27" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
